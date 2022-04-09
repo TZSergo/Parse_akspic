@@ -2,9 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 
 
-pages = 2
-url = "https://wallpaperscraft.ru/all/3840x2160/page"
+pages = 3
+site = "https://wallpaperscraft.ru/"
+url = site + "all/page"
 links = []
+linksImage = []
 
 for i in range(pages):
     response = requests.get(url+str(i))
@@ -15,6 +17,18 @@ for i in range(pages):
         links.append(quote.get('href'))
         #print(quote.text)
 
-print("======\nВ массиве " + str(len(links)) + " ссылок!")
-print(links)
+for link in links:
+    response = requests.get(site + link)
+    soup = BeautifulSoup(response.text, 'lxml')
+    linksImg = soup.find_all('img', class_='wallpaper__image')
+
+    for linkImg in linksImg:
+        linksImage.append(linkImg.get('src'))
+
+
+print("======")
+print("Со страниц " + str(len(links)) + " ссылок!")
+print("Ссылок на картинки: " + str(len(linksImage)) + " шт.\n")
+#print(links)
+#print(linksImage)
 print("======")
