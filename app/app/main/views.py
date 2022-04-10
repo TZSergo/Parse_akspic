@@ -1,19 +1,53 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Images
+from django.core.paginator import Paginator
 
 
 def index(request):
     myImage = Images.objects.order_by('-id')
-    return render(request, 'main/index.html', {"masImg": myImage})
+
+    image_paginator = Paginator(myImage, 9)
+    page_num = request.GET.get('page')
+    page = image_paginator.get_page(page_num)
+
+    context = {
+        'count': image_paginator.count,
+        'page': page,
+        'category': ''
+    }
+
+    return render(request, 'main/index.html', context)
 
 def cosmos(request):
     myImage = Images.objects.filter(category="cosmos")
-    return render(request, 'main/index.html', {"masImg": myImage})
+
+    image_paginator = Paginator(myImage, 9)
+    page_num = request.GET.get('page')
+    page = image_paginator.get_page(page_num)
+
+    context = {
+        'count': image_paginator.count,
+        'page': page,
+        'category': 'cosmos'
+    }
+
+    return render(request, 'main/index.html', context)
 
 def city(request):
     myImage = Images.objects.filter(category="city")
-    return render(request, 'main/index.html', {"masImg": myImage})
+
+    image_paginator = Paginator(myImage, 9)
+    page_num = request.GET.get('page')
+    page = image_paginator.get_page(page_num)
+
+    context = {
+        'count': image_paginator.count,
+        'page': page,
+        'category': 'city'
+    }
+
+    return render(request, 'main/index.html', context)
 
 
 def about(request):
