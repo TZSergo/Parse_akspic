@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 pages = 3
 site = "https://wallpaperscraft.ru/"
-url = site + "all/page"
+url = site + "catalog/space/page"
 links = []
 linksImage = []
 
@@ -24,6 +24,8 @@ for link in links:
 
     for linkImg in linksImg:
         linksImage.append(linkImg.get('src'))
+
+print(linksImage)
 
 
 print("======")
