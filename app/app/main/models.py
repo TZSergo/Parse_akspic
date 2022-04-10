@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Images(models.Model):
-    link = models.CharField('Link', max_length=255)
+    link = models.TextField('Link')
     desk = models.TextField('Desk')
     category = models.TextField('Category')
 
