@@ -49,6 +49,21 @@ def city(request):
 
     return render(request, 'main/index.html', context)
 
+def cars(request):
+    myImage = Images.objects.filter(category="cars")
+
+    image_paginator = Paginator(myImage, 9)
+    page_num = request.GET.get('page')
+    page = image_paginator.get_page(page_num)
+
+    context = {
+        'count': image_paginator.count,
+        'page': page,
+        'category': 'cars'
+    }
+
+    return render(request, 'main/index.html', context)
+
 
 def about(request):
     return render(request, 'main/about.html')

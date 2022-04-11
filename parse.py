@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import sqlite3
 
 
-pages = 1
+pages = 3
 site = "https://wallpaperscraft.ru/"
 url = site + "catalog/city/page"
 links = []
