@@ -34,7 +34,7 @@ def delete_img(filename):
 
 @dp.message_handler(commands='start')
 async def start(message: types.Message):
-    start_buttons = ['Города', 'Машины', 'Космос']
+    start_buttons = ['Города', 'Машины', 'Космос', 'Минимализм', 'Арт', 'Вектор']
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     keyboard.add(*start_buttons)
 
@@ -48,6 +48,15 @@ async def city(message: types.Message):
     delete_img(filename)
 
 
+@dp.message_handler(Text(equals='Жопа'))
+async def ass(message: types.Message):
+    start_buttons = ['Города', 'Машины', 'Космос', 'Минимализм', 'Арт', 'Вектор']
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    keyboard.add(*start_buttons)
+
+    await message.answer('Это не я жопа, Лера - жопа!', reply_markup=keyboard)
+
+
 @dp.message_handler(Text(equals='Машины'))
 async def cars(message: types.Message):
     filename = connect_db('cars')
@@ -58,6 +67,27 @@ async def cars(message: types.Message):
 @dp.message_handler(Text(equals='Космос'))
 async def cosmos(message: types.Message):
     filename = connect_db('cosmos')
+    await message.answer_photo(types.InputFile(filename))
+    delete_img(filename)
+
+
+@dp.message_handler(Text(equals='Минимализм'))
+async def minimal(message: types.Message):
+    filename = connect_db('minimal')
+    await message.answer_photo(types.InputFile(filename))
+    delete_img(filename)
+
+
+@dp.message_handler(Text(equals='Арт'))
+async def art(message: types.Message):
+    filename = connect_db('art')
+    await message.answer_photo(types.InputFile(filename))
+    delete_img(filename)
+
+
+@dp.message_handler(Text(equals='Вектор'))
+async def vector(message: types.Message):
+    filename = connect_db('vector')
     await message.answer_photo(types.InputFile(filename))
     delete_img(filename)
 
