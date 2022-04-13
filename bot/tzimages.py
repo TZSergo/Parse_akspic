@@ -5,6 +5,11 @@ import sqlite3, random, os, urllib.request, p
 
 bot = Bot(token=p.token)
 dp = Dispatcher(bot)
+
+start_buttons = ['Города', 'Машины', 'Космос', 'Минимализм', 'Арт', 'Вектор', 'Природа']
+keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+keyboard.add(*start_buttons)
+
 masMes = []
 
 
@@ -34,10 +39,6 @@ def delete_img(filename):
 
 @dp.message_handler(commands='start')
 async def start(message: types.Message):
-    start_buttons = ['Города', 'Машины', 'Космос', 'Минимализм', 'Арт', 'Вектор']
-    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    keyboard.add(*start_buttons)
-
     await message.answer('Выбери категорию', reply_markup=keyboard)
 
 
@@ -50,7 +51,6 @@ async def city(message: types.Message):
 
 @dp.message_handler(Text(equals='Жопа'))
 async def ass(message: types.Message):
-    start_buttons = ['Города', 'Машины', 'Космос', 'Минимализм', 'Арт', 'Вектор']
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     keyboard.add(*start_buttons)
 
@@ -88,6 +88,13 @@ async def art(message: types.Message):
 @dp.message_handler(Text(equals='Вектор'))
 async def vector(message: types.Message):
     filename = connect_db('vector')
+    await message.answer_photo(types.InputFile(filename))
+    delete_img(filename)
+
+
+@dp.message_handler(Text(equals='Природа'))
+async def nature(message: types.Message):
+    filename = connect_db('nature')
     await message.answer_photo(types.InputFile(filename))
     delete_img(filename)
 
